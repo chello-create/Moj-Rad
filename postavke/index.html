@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="bs">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="refresh" content="0; url=postavke.html">
+	<title>Postavke | Moj Rad</title>
+</head>
+<body>
+	<p>Otvaranje postavki...</p>
+	<script>window.location.replace('postavke.html');</script>
+</body>
+</html>
+<!doctype html>
+<html lang="bs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Postavke | Moj Rad</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body class="settings-page">
+	<main class="settings-shell">
+		<header class="settings-topbar">
+			<a class="back-link" href="../index.html" aria-label="Nazad na početnu stranicu">← <span>Početna</span></a>
+			<div class="topbar-brand"><span class="brand-dot" aria-hidden="true">MR</span><span>Moj Rad</span></div>
+			<a class="settings-shortcut" href="../obracun/obracun.html">Obračun →</a>
+		</header>
+		<section class="settings-heading"><p class="eyebrow">Parametri firme</p><h1>Postavke</h1><p>Ovdje mijenjate vrijednosti koje obračun koristi pri svakom osvježavanju.</p></section>
+		<section class="settings-card" aria-labelledby="settings-title">
+			<div class="section-heading"><div><p class="eyebrow">Obračun rada</p><h2 id="settings-title">Osnovni parametri</h2></div></div>
+			<form id="settings-form">
+				<label for="hourly-rate">Satnica (KM)</label><input id="hourly-rate" type="number" min="0" step="0.01" required>
+				<label for="travel-cost">Putni trošak (KM)</label><input id="travel-cost" type="number" min="0" step="0.01" required>
+				<button class="primary-button" type="submit">Sačuvaj postavke</button>
+				<p class="save-message" id="save-message" role="status" hidden>Postavke su sačuvane.</p>
+			</form>
+		</section>
+	</main>
+	<script src="../podaci/obracun-konfiguracija.js"></script>
+	<script src="settings.js"></script>
+</body>
+</html>

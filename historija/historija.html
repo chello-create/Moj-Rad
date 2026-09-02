@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="bs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Historija spremljenih obračuna aplikacije Moj Rad">
+  <title>Historija obračuna | Moj Rad</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="historija.css">
+</head>
+<body class="history-page">
+  <main class="history-shell">
+    <header class="history-topbar">
+      <a class="back-link" href="../index.html" aria-label="Nazad na početnu stranicu">← <span>Početna</span></a>
+      <div class="topbar-brand"><span class="brand-dot" aria-hidden="true">MR</span><span>Moj Rad</span></div>
+      <a class="calculation-shortcut" href="../mjesecni-pregled/mjesecni-pregled.html">Mjesečni pregled →</a>
+    </header>
+    <section class="history-heading"><p class="eyebrow">Arhiva</p><h1>💾 Historija obračuna</h1><p>Sačuvani mjesečni obračuni ostaju nepromijenjeni kao snapshot.</p></section>
+    <section id="history-list" class="history-list" aria-live="polite"></section>
+    <section id="empty-history" class="empty-history" hidden><strong>📭 Nema spremljenih obračuna.</strong><p>Kada završiš mjesečni obračun, možeš ga spremiti u Historiju.</p></section>
+  </main>
+  <dialog id="details-dialog" class="details-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-header"><h2 id="dialog-title">Pregled obračuna</h2><button id="close-dialog" class="dialog-close" type="button" aria-label="Zatvori pregled">×</button></div>
+    <button id="pdf-history" class="pdf-history" type="button">📄 Napravi PDF</button>
+    <div id="dialog-content"></div>
+  </dialog>
+  <dialog id="delete-dialog" class="action-dialog"><p id="delete-question"></p><div><button id="confirm-delete" class="dialog-primary" type="button">Obriši</button><button id="cancel-delete" type="button">Odustani</button></div></dialog>
+  <script src="../podaci/historija.js"></script>
+  <script src="../podaci/obracun-jezgro.js"></script>
+  <script src="historija.js"></script>
+</body>
+</html>

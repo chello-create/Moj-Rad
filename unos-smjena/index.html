@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="bs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Unos i upravljanje smjenama u aplikaciji Moj Rad">
+	<title>Unos smjena | Moj Rad</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body class="shift-page">
+	<main class="shift-shell">
+		<header class="shift-topbar">
+			<a class="back-link" href="../index.html" aria-label="Nazad na početnu stranicu">← <span>Početna</span></a>
+			<div class="topbar-brand"><span class="brand-dot" aria-hidden="true">MR</span><span>Moj Rad</span></div>
+			<a class="calendar-shortcut" href="../kalendar/index.html">Kalendar →</a>
+		</header>
+
+		<section class="shift-layout">
+			<div class="shift-heading">
+				<p class="eyebrow">Evidencija rada</p>
+				<h1>Unos smjena</h1>
+				<p>Dodajte jednu smjenu za svaki datum. Isti podaci će biti dostupni kalendaru i obračunu.</p>
+			</div>
+
+			<section class="shift-form-card" aria-labelledby="form-title">
+				<div class="section-heading">
+					<div><p class="eyebrow">Novi zapis</p><h2 id="form-title">Smjena</h2></div>
+					<span class="form-status" id="form-status">Novi unos</span>
+				</div>
+				<form id="shift-form">
+					<input id="editing-date" type="hidden">
+					<label for="shift-date">Datum</label>
+					<input id="shift-date" type="date" required>
+					<p class="weekday-note" id="weekday-note">Odaberite datum</p>
+					<label for="shift-type">Vrsta smjene</label>
+					<select id="shift-type" required>
+						<option value="Dnevna">Dnevna · 07:00–19:00</option>
+						<option value="Noćna">Noćna · 19:00–07:00</option>
+						<option value="Slobodan dan">Slobodan dan</option>
+					</select>
+					<p class="duplicate-warning" id="duplicate-warning" role="alert" hidden>Za ovaj datum već postoji smjena. Sačuvavanjem ćete je izmijeniti.</p>
+					<div class="form-actions">
+						<button class="primary-button" type="submit">Sačuvaj</button>
+						<button class="secondary-button" id="cancel-edit" type="button" hidden>Otkaži izmjenu</button>
+					</div>
+				</form>
+			</section>
+
+			<section class="paste-shifts-card" aria-labelledby="paste-title">
+				<div class="section-heading">
+					<div><p class="eyebrow">📋 Brzi unos</p><h2 id="paste-title">Zalijepi listu svojih smjena</h2></div>
+				</div>
+				<p class="paste-intro">Kopirajte listu iz poruke, bilješke ili ChatGPT-a i zalijepite je ovdje.</p>
+				<label for="paste-month">Godina i mjesec za datume bez godine</label>
+				<input id="paste-month" type="month">
+				<label for="paste-input">Lista smjena</label>
+				<textarea id="paste-input" rows="8" placeholder="Ovdje zalijepite svoju listu smjena..."></textarea>
+				<div class="paste-actions"><button class="primary-button" id="recognize-paste" type="button">🔍 Prepoznaj smjene</button><span class="paste-message" id="paste-message" role="status" hidden></span></div>
+			</section>
+
+			<section class="paste-preview-card" id="paste-preview" aria-labelledby="paste-preview-title" hidden>
+				<div class="section-heading"><div><p class="eyebrow">🔍 Prepoznato</p><h2 id="paste-preview-title">Pregled liste</h2></div><span id="paste-count"></span></div>
+				<div class="paste-summary" id="paste-summary"></div>
+				<div class="table-wrap"><table><thead><tr><th>Datum</th><th>Smjena</th><th>Vrijeme</th><th>Status</th></tr></thead><tbody id="paste-preview-body"></tbody></table></div>
+				<p class="paste-warning" id="paste-warning" hidden></p>
+				<div class="form-actions"><button class="primary-button" id="add-paste-shifts" type="button">✅ Dodaj smjene</button><button class="secondary-button" id="cancel-paste" type="button">❌ Odustani</button></div>
+			</section>
+
+			<section class="image-shifts-card" aria-labelledby="image-title">
+				<div class="section-heading">
+					<div><p class="eyebrow">📷 Treći način</p><h2 id="image-title">Učitaj sliku rasporeda</h2></div>
+				</div>
+				<p class="paste-intro">Slika ostaje na uređaju. Ako browser podržava lokalni OCR, tekst će biti poslan u isti Smart pregled.</p>
+				<label class="image-picker" for="schedule-image"><span aria-hidden="true">🖼️</span><span><strong>Odaberi JPG, PNG ili WEBP sliku</strong><small id="image-name">Nije odabrana slika</small></span></label>
+				<input id="schedule-image" type="file" accept="image/jpeg,image/png,image/webp">
+				<img class="image-preview" id="image-preview" alt="Pregled učitane slike rasporeda" hidden>
+				<button class="primary-button" id="analyze-image" type="button" disabled>🔍 Analiziraj raspored</button>
+				<p class="image-message" id="image-message" role="status" hidden></p>
+			</section>
+
+			<section class="saved-shifts" aria-labelledby="saved-title">
+				<div class="saved-heading"><div><p class="eyebrow">Pregled</p><h2 id="saved-title">Sačuvane smjene</h2></div><div class="saved-heading-actions"><span id="shift-count">0 zapisa</span><button class="clear-shifts-button" id="clear-shifts" type="button">🗑️ Obriši sve smjene</button></div></div>
+				<div class="shift-list" id="shift-list"></div>
+				<p class="empty-state" id="empty-state">Još nema sačuvanih smjena.</p>
+			</section>
+		</section>
+	</main>
+	<dialog id="clear-dialog" class="clear-dialog">
+		<h2>⚠️ Da li ste sigurni?</h2>
+		<p>Ovim ćete obrisati sve trenutno unesene smjene. Ova radnja se ne može poništiti.</p>
+		<div><button id="cancel-clear" class="secondary-button" type="button">Odustani</button><button id="confirm-clear" class="danger-button" type="button">Da, obriši sve</button></div>
+	</dialog>
+	<p class="bulk-message" id="bulk-message" role="status" hidden>✅ Sve smjene su obrisane.</p>
+	<script src="../praznici/praznici.js"></script>
+	<script src="../podaci/smjene.js"></script>
+	<script src="shift-entry.js"></script>
+</body>
+</html>

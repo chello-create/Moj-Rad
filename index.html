@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="bs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Moj Rad - evidencija rada i obračun">
+  <title>Moj Rad | Početna</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="home-page">
+  <main class="home-shell">
+    <section class="welcome-panel" aria-labelledby="page-title">
+      <div class="brand-mark" aria-hidden="true">MR</div>
+      <p class="eyebrow">Lična evidencija</p>
+      <h1 id="page-title">Moj Rad</h1>
+      <p class="subtitle">Evidencija rada i obračun</p>
+      <button class="menu-button" id="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">
+        <span aria-hidden="true">☰</span> MENI
+      </button>
+    </section>
+  </main>
+
+  <div class="menu-backdrop" id="menu-backdrop" hidden></div>
+  <aside class="app-menu" id="main-menu" aria-labelledby="menu-title" hidden>
+    <div class="menu-header">
+      <div>
+        <p class="eyebrow">Moj Rad</p>
+        <h2 id="menu-title">Glavni meni</h2>
+      </div>
+      <button class="icon-button" id="menu-close" type="button" aria-label="Zatvori meni">×</button>
+    </div>
+    <nav aria-label="Glavna navigacija">
+      <a href="kalendar/index.html" class="menu-link"><span aria-hidden="true">📅</span> Kalendar</a>
+      <a href="unos-smjena/index.html" class="menu-link"><span aria-hidden="true">➕</span> Unos smjena</a>
+      <a href="txt-raspored/index.html" class="menu-link"><span aria-hidden="true">📄</span> Učitaj TXT raspored</a>
+      <a href="obracun/obracun.html" class="menu-link"><span aria-hidden="true">💰</span> Obračun</a>
+      <a href="mjesecni-pregled/mjesecni-pregled.html" class="menu-link"><span aria-hidden="true">📊</span> Mjesečni pregled</a>
+      <a href="historija/historija.html" class="menu-link"><span aria-hidden="true">💾</span> Historija obračuna</a>
+      <a href="postavke/postavke.html" class="menu-link"><span aria-hidden="true">⚙️</span> Postavke</a>
+    </nav>
+  </aside>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

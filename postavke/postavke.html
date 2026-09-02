@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="bs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Postavke aplikacije Moj Rad">
+  <title>Postavke | Moj Rad</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="postavke.css">
+</head>
+<body class="settings-page">
+  <main class="settings-shell">
+    <header class="settings-topbar">
+      <a class="back-link" href="../index.html" aria-label="Nazad na početnu stranicu">← <span>Početna</span></a>
+      <div class="topbar-brand"><span class="brand-dot" aria-hidden="true">MR</span><span>Moj Rad</span></div>
+      <a class="settings-shortcut" href="../obracun/obracun.html">Obračun →</a>
+    </header>
+
+    <section class="settings-heading" aria-labelledby="settings-title">
+      <p class="eyebrow">Konfiguracija aplikacije</p>
+      <h1 id="settings-title">⚙️ Postavke</h1>
+      <p>Vrijednosti sa ove stranice koriste se direktno u mjesečnom obračunu.</p>
+    </section>
+
+    <form id="settings-form">
+      <section class="settings-card wide-card" aria-labelledby="profile-title">
+        <div class="section-heading"><div><p class="eyebrow">👤 Moj profil</p><h2 id="profile-title">Podaci za TXT prepoznavanje</h2></div></div>
+        <label for="profile-name">Ime i prezime</label>
+        <input id="profile-name" type="text" autocomplete="name" placeholder="npr. Senad Gudić">
+        <p class="settings-note">Profil nije obavezan. Bez unesenog imena postojeći TXT format bez imena radi kao i ranije.</p>
+        <div class="alias-heading"><strong>Moja imena u rasporedu</strong><span id="alias-empty">Nema dodatih naziva.</span></div>
+        <ul class="alias-list" id="alias-list"></ul>
+        <div class="alias-add"><input id="alias-input" type="text" placeholder="npr. Seno" aria-label="Novi naziv ili alias"><button id="add-alias" class="secondary-button" type="button">➕ Dodaj naziv</button></div>
+      </section>
+
+      <section class="settings-card" aria-labelledby="pay-title">
+        <div class="section-heading"><div><p class="eyebrow">💰 Plaća</p><h2 id="pay-title">Osnovna satnica</h2></div></div>
+        <label for="hourly-rate">Osnovna satnica (KM)</label>
+        <div class="input-with-unit"><input id="hourly-rate" type="number" min="0" step="0.01" required><span>KM</span></div>
+      </section>
+
+      <section class="settings-card" aria-labelledby="travel-title">
+        <div class="section-heading"><div><p class="eyebrow">🚗 Putni trošak</p><h2 id="travel-title">Naknada za put</h2></div></div>
+        <label for="travel-cost">Putni trošak (KM)</label>
+        <div class="input-with-unit"><input id="travel-cost" type="number" min="0" step="0.01" required><span>KM</span></div>
+      </section>
+
+      <section class="settings-card wide-card" aria-labelledby="factor-title">
+        <div class="section-heading"><div><p class="eyebrow">📊 Faktori obračuna</p><h2 id="factor-title">Faktori firme</h2></div></div>
+        <div class="factor-grid">
+          <label>Redovan rad<input id="factor-regular" type="number" min="0" step="0.001" required></label>
+          <label>Noćni rad<input id="factor-night" type="number" min="0" step="0.001" required></label>
+          <label>Dnevni rad subotom<input id="factor-saturday" type="number" min="0" step="0.001" required></label>
+          <label>Dnevni rad nedjeljom<input id="factor-sunday" type="number" min="0" step="0.001" required></label>
+          <label>Noćni rad nedjeljom<input id="factor-sunday-night" type="number" min="0" step="0.001" required></label>
+        </div>
+        <p class="settings-note">Faktor praznika: <strong>Nije definisan</strong>. Praznični sati se evidentiraju, ali se ne obračunavaju dok faktor ne bude potvrđen.</p>
+      </section>
+
+      <section class="settings-card wide-card" aria-labelledby="night-title">
+        <div class="section-heading"><div><p class="eyebrow">🌙 Noćna smjena</p><h2 id="night-title">Pravilo obračuna</h2></div></div>
+        <p class="rule-text">Standardna noćna smjena: <strong>19:00 – 07:00</strong></p>
+        <p class="rule-text"><strong>8 sati noćnog rada + 4 sata redovnog dnevnog rada</strong></p>
+        <p class="settings-note">8 h × satnica × faktor noćnog rada<br>+ 4 h × satnica × faktor redovnog rada<br>Ukupno: 12 sati</p>
+      </section>
+
+      <section class="settings-card wide-card" aria-labelledby="hours-title">
+        <div class="section-heading"><div><p class="eyebrow">🕐 Standardne smjene</p><h2 id="hours-title">Radno vrijeme</h2></div></div>
+        <div class="shift-times"><div><strong>Dnevna smjena</strong><span>Početak <b id="day-start"></b></span><span>Kraj <b id="day-end"></b></span></div><div><strong>Noćna smjena</strong><span>Početak <b id="night-start"></b></span><span>Kraj <b id="night-end"></b></span></div></div>
+        <p class="settings-note">Standardna vremena su trenutno informativna i spremljena su u centralnoj konfiguraciji.</p>
+      </section>
+
+      <section class="settings-card wide-card" aria-labelledby="holiday-title">
+        <div class="section-heading"><div><p class="eyebrow">🎉 Praznici</p><h2 id="holiday-title">Evidencija praznika</h2></div></div>
+        <p class="settings-note">Praznici se prepoznaju iz zasebnog modula. Njihovi sati se prikazuju u obračunu, bez dodatnog faktora ili bonusa.</p>
+      </section>
+
+      <div class="settings-actions">
+        <button class="primary-button" type="submit">💾 SPREMI POSTAVKE</button>
+        <button class="reset-button" id="reset-settings" type="button">↩️ Vrati zadane vrijednosti</button>
+        <p class="save-message" id="save-message" role="status" hidden>✅ Postavke su uspješno spremljene.</p>
+      </div>
+    </form>
+  </main>
+  <script src="../podaci/obracun-konfiguracija.js"></script>
+  <script src="postavke.js"></script>
+</body>
+</html>

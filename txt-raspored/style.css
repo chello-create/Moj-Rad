@@ -1,0 +1,50 @@
+.txt-page { min-height: 100vh; background: linear-gradient(135deg, #f7f8f3 0%, #e8f1e8 58%, #f8f3df 100%); }
+.txt-shell { width: min(100% - 2rem, 78rem); margin: 0 auto; padding: 1.5rem 0 4rem; }
+.txt-topbar { display: flex; align-items: center; justify-content: space-between; min-height: 3rem; }
+.calendar-shortcut { color: var(--green-dark); font: 700 0.82rem/1 Arial, sans-serif; text-decoration: none; }
+.calendar-shortcut:hover, .calendar-shortcut:focus-visible { color: var(--green); text-decoration: underline; }
+.txt-heading { margin: 4.5rem 0 2rem; max-width: 46rem; }
+.txt-heading h1 { margin-bottom: 0.8rem; font-size: clamp(2.7rem, 7vw, 4.8rem); }
+.txt-heading > p:last-child { max-width: 38rem; margin-bottom: 0; color: var(--muted); font-size: 1.05rem; line-height: 1.6; }
+.upload-card, .preview-card { background: rgba(255, 255, 255, 0.88); border: 1px solid rgba(220, 229, 221, 0.9); box-shadow: var(--shadow); }
+.upload-card { max-width: 48rem; padding: 2rem; }
+.section-heading, .preview-heading { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
+.section-heading { padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); margin-bottom: 1.5rem; }
+.section-heading h2, .preview-heading h2 { margin: 0; font-size: 1.8rem; font-weight: 400; }
+#txt-file { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+.file-picker { display: flex; align-items: center; gap: 1rem; padding: 1.25rem; border: 1px dashed #aebfb1; background: #f8fbf7; color: var(--green-dark); cursor: pointer; }
+.file-picker:hover, .file-picker:focus-within { border-color: var(--green); background: #f1f8f1; }
+.file-picker > span:first-child { font-size: 1.5rem; }
+.file-picker strong, .file-picker small { display: block; }
+.file-picker strong { font: 700 0.85rem/1.2 Arial, sans-serif; }
+.file-picker small { margin-top: 0.35rem; color: var(--muted); font: 0.78rem/1.2 Arial, sans-serif; }
+.file-note { margin: 1rem 0 0; color: var(--muted); font: 0.78rem/1.5 Arial, sans-serif; }
+.import-error, .preview-warning { margin: 1rem 0 0; padding: 0.75rem; background: #fff5dc; color: #765b1d; font: 0.8rem/1.4 Arial, sans-serif; }
+.preview-card { margin-top: 2rem; padding: 2rem; }
+.preview-heading { padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
+#preview-count { color: var(--green); font: 700 0.68rem/1.2 Arial, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+.smart-summary { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; padding: 1rem 0; color: var(--muted); font: 0.78rem/1.4 Arial, sans-serif; }
+.smart-summary b { color: var(--ink); }
+.uncertain-panel { margin-bottom: 1rem; padding: 1rem; background: #fff5dc; color: #765b1d; font: 0.8rem/1.4 Arial, sans-serif; }
+.uncertain-panel p { margin: 0.35rem 0 0.75rem; }
+.uncertain-panel button { margin: 0.25rem 0.4rem 0 0; padding: 0.55rem 0.7rem; border: 1px solid #c9a94e; background: white; color: #765b1d; cursor: pointer; font: 700 0.7rem/1.2 Arial, sans-serif; }
+.uncertain-panel button:hover, .uncertain-panel button:focus-visible { background: #fffaf0; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font: 0.9rem/1.3 Arial, sans-serif; }
+th { padding: 1rem 0.75rem; color: var(--muted); font-size: 0.68rem; letter-spacing: 0.1em; text-align: left; text-transform: uppercase; }
+td { padding: 1rem 0.75rem; border-top: 1px solid var(--line); }
+td:first-child { color: var(--ink); font-weight: 700; }
+td:last-child { color: var(--green-dark); font-weight: 700; }
+.preview-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+.primary-button, .secondary-button { padding: 0.9rem 1rem; border: 0; cursor: pointer; font: 700 0.75rem/1 Arial, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+.primary-button { background: var(--green); color: white; }
+.primary-button:hover, .primary-button:focus-visible { background: var(--green-dark); }
+.secondary-button { border: 1px solid var(--line); background: white; color: var(--muted); }
+.primary-button:disabled { cursor: not-allowed; opacity: 0.5; }
+
+@media (max-width: 46rem) {
+  .txt-shell { width: min(100% - 1rem, 78rem); padding-top: 0.8rem; }
+  .txt-heading { margin-top: 3rem; }
+  .back-link span { display: none; }
+  th, td { padding-right: 0.5rem; padding-left: 0.5rem; }
+}

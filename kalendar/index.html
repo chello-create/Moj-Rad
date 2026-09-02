@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="bs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Mjesečni kalendar aplikacije Moj Rad">
+	<title>Kalendar | Moj Rad</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body class="calendar-page">
+	<main class="calendar-shell">
+		<header class="calendar-topbar">
+			<a class="back-link" href="../index.html" aria-label="Nazad na početnu stranicu">← <span>Početna</span></a>
+			<div class="topbar-brand"><span class="brand-dot" aria-hidden="true">MR</span><span>Moj Rad</span></div>
+			<span class="topbar-spacer" aria-hidden="true"></span>
+		</header>
+
+		<section class="calendar-intro" aria-labelledby="calendar-title">
+			<div>
+				<p class="eyebrow">Pregled rada</p>
+				<h1 id="calendar-title">Kalendar</h1>
+			</div>
+			<button class="today-button" id="today-button" type="button">Danas</button>
+		</section>
+
+		<section class="calendar-card" aria-label="Mjesečni kalendar">
+			<div class="month-toolbar">
+				<button class="month-arrow" id="previous-month" type="button" aria-label="Prethodni mjesec">←</button>
+				<h2 id="month-label" aria-live="polite"></h2>
+				<button class="month-arrow" id="next-month" type="button" aria-label="Sljedeći mjesec">→</button>
+			</div>
+
+			<div class="weekday-row" aria-hidden="true">
+				<span>Pon</span><span>Uto</span><span>Sri</span><span>Čet</span><span>Pet</span><span class="weekend-heading">Sub</span><span class="weekend-heading">Ned</span>
+			</div>
+			<div class="month-grid" id="month-grid" role="grid" aria-labelledby="month-label"></div>
+		</section>
+	</main>
+
+	<script src="../praznici/praznici.js"></script>
+	<script src="../podaci/smjene.js"></script>
+	<script src="calendar.js"></script>
+</body>
+</html>

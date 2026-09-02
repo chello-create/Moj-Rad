@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="bs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mjesečni obračun rada u aplikaciji Moj Rad">
+  <title>Obračun | Moj Rad</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="obracun.css">
+</head>
+<body class="calculation-page">
+  <main class="calculation-shell">
+    <header class="calculation-topbar">
+      <a class="back-link" href="../index.html" aria-label="Nazad na početnu stranicu">← <span>Početna</span></a>
+      <div class="topbar-brand"><span class="brand-dot" aria-hidden="true">MR</span><span>Moj Rad</span></div>
+      <a class="settings-shortcut" href="../postavke/postavke.html">Postavke →</a>
+    </header>
+
+    <section class="calculation-heading">
+      <div><p class="eyebrow">Pregled zarade</p><h1>Obračun</h1><p>Izračun se zasniva na trenutno sačuvanim smjenama i parametrima firme.</p></div>
+      <label class="month-picker" for="month-select">Mjesec <input id="month-select" type="month"></label>
+    </section>
+
+    <section class="summary-card" aria-labelledby="summary-title">
+      <div class="section-heading"><div><p class="eyebrow">Mjesečni pregled</p><h2 id="summary-title">Sažetak</h2></div><span id="shift-count"></span></div>
+      <div class="summary-grid" id="summary-grid"></div>
+      <div class="totals"><div><span>Rad</span><strong id="work-total">0,00 KM</strong></div><div><span>Putni trošak</span><strong id="travel-total">0,00 KM</strong></div><div class="grand-total"><span>Ukupno za isplatu</span><strong id="payment-total">0,00 KM</strong></div></div>
+    </section>
+
+    <section class="details-card" aria-labelledby="details-title">
+      <div class="section-heading"><div><p class="eyebrow">Objašnjenje izračuna</p><h2 id="details-title">Detaljni obračun po danima</h2></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Datum</th><th>Dan</th><th>Smjena</th><th>Sati</th><th>Faktor</th><th>Iznos</th></tr></thead><tbody id="details-body"></tbody></table></div>
+      <p class="empty-calculation" id="empty-calculation">Za izabrani mjesec nema sačuvanih smjena.</p>
+    </section>
+  </main>
+  <script src="../praznici/praznici.js"></script>
+  <script src="../podaci/smjene.js"></script>
+  <script src="../podaci/obracun-konfiguracija.js"></script>
+  <script src="../podaci/obracun-jezgro.js"></script>
+  <script src="obracun.js"></script>
+</body>
+</html>

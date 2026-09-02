@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="bs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mjesečni pregled rada aplikacije Moj Rad">
+  <title>Mjesečni pregled | Moj Rad</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="mjesecni-pregled.css">
+</head>
+<body class="monthly-page">
+  <main class="monthly-shell">
+    <header class="monthly-topbar">
+      <a class="back-link" href="../index.html" aria-label="Nazad na početnu stranicu">← <span>Početna</span></a>
+      <div class="topbar-brand"><span class="brand-dot" aria-hidden="true">MR</span><span>Moj Rad</span></div>
+      <a class="calculation-shortcut" href="../obracun/obracun.html">Obračun →</a>
+    </header>
+
+    <section class="monthly-heading" aria-labelledby="monthly-title">
+      <div><p class="eyebrow">Izvještaj rada</p><h1 id="monthly-title">📊 Mjesečni pregled</h1><p>Sažetak smjena, sati i finansija za izabrani mjesec.</p></div>
+      <label class="month-picker" for="month-select">Mjesec <input id="month-select" type="month"></label>
+    </section>
+
+    <section class="summary-card" aria-labelledby="summary-title">
+      <div class="section-heading"><div><p class="eyebrow">Mjesečni pregled</p><h2 id="summary-title">Sažetak</h2></div><div class="summary-actions"><span id="shift-count"></span><button class="save-calculation" id="save-calculation" type="button">💾 Spremi obračun</button><button class="pdf-calculation" id="pdf-calculation" type="button">📄 Napravi PDF</button></div></div>
+      <div class="summary-grid" id="summary-grid"></div>
+    </section>
+
+    <section class="finance-strip" aria-label="Brzi finansijski pregled">
+      <article class="finance-card"><span aria-hidden="true">💰</span><div><p>Rad</p><strong id="work-total">0,00 KM</strong></div></article>
+      <article class="finance-card"><span aria-hidden="true">🚗</span><div><p>Putni</p><strong id="travel-total">0,00 KM</strong></div></article>
+      <article class="finance-card finance-total"><span aria-hidden="true">💵</span><div><p>Ukupno</p><strong id="payment-total">0,00 KM</strong></div></article>
+    </section>
+
+    <section class="details-card" aria-labelledby="details-title">
+      <div class="section-heading"><div><p class="eyebrow">Dnevni zapisi</p><h2 id="details-title">📋 Detaljne smjene</h2></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Datum</th><th>Dan</th><th>Smjena</th><th>Sati</th><th>Status</th></tr></thead><tbody id="details-body"></tbody></table></div>
+      <p class="empty-month" id="empty-month">Za izabrani mjesec nema sačuvanih smjena.</p>
+    </section>
+  </main>
+  <dialog id="update-dialog" class="action-dialog">
+    <p>Ovaj mjesec već postoji u Historiji. Želiš li ga ažurirati?</p>
+    <div><button id="confirm-update" class="dialog-primary" type="button">Ažuriraj</button><button id="cancel-update" type="button">Odustani</button></div>
+  </dialog>
+  <script src="../praznici/praznici.js"></script>
+  <script src="../podaci/smjene.js"></script>
+  <script src="../podaci/obracun-konfiguracija.js"></script>
+  <script src="../podaci/obracun-jezgro.js"></script>
+  <script src="../podaci/historija.js"></script>
+  <script src="mjesecni-pregled.js"></script>
+</body>
+</html>

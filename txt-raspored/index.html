@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="bs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Učitavanje TXT rasporeda u aplikaciji Moj Rad">
+  <title>Učitaj TXT raspored | Moj Rad</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="txt-page">
+  <main class="txt-shell">
+    <header class="txt-topbar">
+      <a class="back-link" href="../index.html" aria-label="Nazad na početnu stranicu">← <span>Početna</span></a>
+      <div class="topbar-brand"><span class="brand-dot" aria-hidden="true">MR</span><span>Moj Rad</span></div>
+      <a class="calendar-shortcut" href="../kalendar/index.html">Kalendar →</a>
+    </header>
+
+    <section class="txt-heading">
+      <p class="eyebrow">Uvoz rasporeda</p>
+      <h1>Učitaj TXT raspored</h1>
+      <p>Učitajte tekstualni raspored i pregledajte prepoznate smjene prije nego što ih dodate u aplikaciju.</p>
+    </section>
+
+    <section class="upload-card" aria-labelledby="upload-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">Prvi korak</p><h2 id="upload-title">Odaberite TXT datoteku</h2></div>
+      </div>
+      <label class="file-picker" for="txt-file"><span aria-hidden="true">📄</span><span><strong>Odaberi datoteku</strong><small id="file-name">Nije odabrana datoteka</small></span></label>
+      <input id="txt-file" type="file" accept=".txt,text/plain">
+      <p class="file-note">Podržani format: <strong>03.09. 1. smjena</strong> ili <strong>08.09. 2. smjena</strong></p>
+      <p class="import-error" id="import-error" role="alert" hidden></p>
+    </section>
+
+    <section class="preview-card" id="preview-card" aria-labelledby="preview-title" hidden>
+      <div class="preview-heading">
+        <div><p class="eyebrow">🔍 Smart analiza</p><h2 id="preview-title">Smart pregled rasporeda</h2></div>
+        <span id="preview-count"></span>
+      </div>
+      <div class="smart-summary" id="smart-summary"></div>
+      <div class="uncertain-panel" id="uncertain-panel" hidden></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Datum</th><th>Dan</th><th>Smjena</th><th>Vrijeme</th><th>Status</th></tr></thead>
+          <tbody id="preview-body"></tbody>
+        </table>
+      </div>
+      <p class="preview-warning" id="preview-warning" hidden></p>
+      <div class="preview-actions">
+        <button class="primary-button" id="confirm-import" type="button">✅ Potvrdi i učitaj</button>
+        <button class="secondary-button" id="cancel-import" type="button">❌ Odustani</button>
+      </div>
+    </section>
+  </main>
+  <script src="../praznici/praznici.js"></script>
+  <script src="../podaci/smjene.js"></script>
+  <script src="../podaci/obracun-konfiguracija.js"></script>
+  <script src="txt-import.js"></script>
+</body>
+</html>
