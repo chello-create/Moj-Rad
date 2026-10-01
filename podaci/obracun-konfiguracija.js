@@ -2,7 +2,7 @@
   const storageKey = 'mojRad.obracunKonfiguracija';
   const defaults = {
     satnica: 8,
-    putniTrosak: 150,
+    putniTrosak: 5.7,
     faktori: {
       redovanRad: 1,
       nocniRad: 1.7,
@@ -21,9 +21,11 @@
   function load() {
     try {
       const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      const savedTravelCost = saved.putniTrosak === 150 ? defaults.putniTrosak : saved.putniTrosak;
       return {
         ...defaults,
         ...saved,
+        putniTrosak: savedTravelCost ?? defaults.putniTrosak,
         faktori: { ...defaults.faktori, ...(saved.faktori || {}) },
         standardneSmjene: {
           dnevna: { ...defaults.standardneSmjene.dnevna, ...(saved.standardneSmjene?.dnevna || {}) },

@@ -11,19 +11,24 @@
 
   function calculateShift(shift, config) {
     const factors = config.faktori;
-    if (shift.isHoliday) return { hours: 12, dailyHours: 0, nightHours: 0, saturdayHours: 0, sundayHours: 0, holidayHours: 12, amount: 0, formula: '12 h praznikom × faktor nije definisan', note: `Faktor za praznik nije definisan (${shift.holidayName})` };
-    if (shift.type === 'Slobodan dan') return { hours: 0, dailyHours: 0, nightHours: 0, saturdayHours: 0, sundayHours: 0, holidayHours: 0, amount: 0, formula: 'Slobodan dan · 0 h', note: '' };
+    if (shift.isHoliday) return { hours: 12, dailyHours: 0, nightHours: 0, saturdayHours: 0, sundayHours: 0, holidayHours: 12, amount: 0, overtimeAmount: 0, overtimeShifts: 0, formula: '12 h praznikom × faktor nije definisan', note: `Faktor za praznik nije definisan (${shift.holidayName})` };
+    if (shift.type === 'Slobodan dan') return { hours: 0, dailyHours: 0, nightHours: 0, saturdayHours: 0, sundayHours: 0, holidayHours: 0, amount: 0, overtimeAmount: 0, overtimeShifts: 0, formula: 'Slobodan dan · 0 h', note: '' };
 
     const isSunday = shift.weekdayType === 'nedjelja';
     const isSaturday = shift.weekdayType === 'subota';
+    const overtimeFactor = shift.prekovremeno === true ? 1.5 : 1;
+    const overtimeLabel = shift.prekovremeno === true ? ` × ${formatFactor(overtimeFactor)}` : '';
     if (shift.type === 'Dnevna') {
       const selectedFactor = isSunday ? factors.dnevniNedjeljom : isSaturday ? factors.dnevniSubotom : factors.redovanRad;
-      return { hours: 12, dailyHours: 12, nightHours: 0, saturdayHours: isSaturday ? 12 : 0, sundayHours: isSunday ? 12 : 0, holidayHours: 0, amount: 12 * config.satnica * selectedFactor, formula: `12 h × ${config.satnica.toFixed(2)} × ${formatFactor(selectedFactor)}`, note: '' };
+      const baseAmount = 12 * config.satnica * selectedFactor;
+      return { hours: 12, dailyHours: 12, nightHours: 0, saturdayHours: isSaturday ? 12 : 0, sundayHours: isSunday ? 12 : 0, holidayHours: 0, amount: baseAmount * overtimeFactor, overtimeAmount: baseAmount * (overtimeFactor - 1), overtimeShifts: shift.prekovremeno === true ? 1 : 0, formula: `12 h × ${config.satnica.toFixed(2)} × ${formatFactor(selectedFactor)}${overtimeLabel}`, note: '' };
     }
 
-    const nightFactor = isSunday ? factors.nocniNedjeljom : factors.nocniRad;
-    const dayFactor = isSunday ? factors.dnevniNedjeljom : factors.redovanRad;
-    return { hours: 12, dailyHours: 4, nightHours: 8, saturdayHours: isSaturday ? 12 : 0, sundayHours: isSunday ? 12 : 0, holidayHours: 0, amount: 8 * config.satnica * nightFactor + 4 * config.satnica * dayFactor, formula: `8 h × ${config.satnica.toFixed(2)} × ${formatFactor(nightFactor)} + 4 h × ${config.satnica.toFixed(2)} × ${formatFactor(dayFactor)}`, note: isSunday ? '8 h noćni nedjeljom + 4 h dnevni nedjeljom' : '8 h noćni rad + 4 h redovan rad' };
+    const nightFactor = isSunday ? factors.nocniNedjeljom : isSaturday ? factors.nocniRad * factors.dnevniSubotom : factors.nocniRad;
+    const dayFactor = isSunday ? factors.dnevniNedjeljom : isSaturday ? factors.dnevniSubotom : factors.redovanRad;
+    const nightFormulaFactor = isSaturday && !isSunday ? `${formatFactor(factors.nocniRad)} × ${formatFactor(factors.dnevniSubotom)}` : formatFactor(nightFactor);
+    const baseAmount = 8 * config.satnica * nightFactor + 4 * config.satnica * dayFactor;
+    return { hours: 12, dailyHours: 4, nightHours: 8, saturdayHours: isSaturday ? 12 : 0, sundayHours: isSunday ? 12 : 0, holidayHours: 0, amount: baseAmount * overtimeFactor, overtimeAmount: baseAmount * (overtimeFactor - 1), overtimeShifts: shift.prekovremeno === true ? 1 : 0, formula: `8 h × ${config.satnica.toFixed(2)} × ${nightFormulaFactor}${overtimeLabel} + 4 h × ${config.satnica.toFixed(2)} × ${formatFactor(dayFactor)}${overtimeLabel}`, note: isSunday ? '8 h noćni nedjeljom + 4 h dnevni nedjeljom' : isSaturday ? '8 h noćni rad × subotnji dodatak + 4 h dnevni subotom' : '8 h noćni rad + 4 h redovan rad' };
   }
 
   function calculateMonth(shifts, config) {
@@ -31,7 +36,7 @@
       const breakdown = calculateShift(shift, config);
       Object.keys(result).forEach((key) => { result[key] += breakdown[key] || 0; });
       return result;
-    }, { hours: 0, dailyHours: 0, nightHours: 0, saturdayHours: 0, sundayHours: 0, holidayHours: 0, amount: 0 });
+    }, { hours: 0, dailyHours: 0, nightHours: 0, saturdayHours: 0, sundayHours: 0, holidayHours: 0, amount: 0, overtimeAmount: 0, overtimeShifts: 0 });
   }
 
   function ascii(value) {

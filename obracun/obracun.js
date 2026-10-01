@@ -8,14 +8,15 @@ const travelTotal = document.querySelector('#travel-total');
 const paymentTotal = document.querySelector('#payment-total');
 
 function renderSummary(summary, config) {
+  const travelCost = summary.shiftCount * config.putniTrosak;
   const items = [
-    ['Ukupno radnih sati', `${summary.hours} h`], ['Ukupno dnevnih sati', `${summary.dailyHours} h`], ['Ukupno noćnih sati', `${summary.nightHours} h`], ['Ukupno sati subotom', `${summary.saturdayHours} h`], ['Ukupno sati nedjeljom', `${summary.sundayHours} h`], ['Ukupno sati praznikom', `${summary.holidayHours} h`], ['Osnovna satnica', MojRadCalculation.formatMoney(config.satnica)], ['Putni trošak', MojRadCalculation.formatMoney(config.putniTrosak)]
+    ['Broj radnih dana/smjena', `${summary.shiftCount}`], ['Prekovremene smjene', `${summary.overtimeShifts}`], ['Prekovremeni dodatak', MojRadCalculation.formatMoney(summary.overtimeAmount)], ['Ukupno radnih sati', `${summary.hours} h`], ['Ukupno dnevnih sati', `${summary.dailyHours} h`], ['Ukupno noćnih sati', `${summary.nightHours} h`], ['Ukupno sati subotom', `${summary.saturdayHours} h`], ['Ukupno sati nedjeljom', `${summary.sundayHours} h`], ['Ukupno sati praznikom', `${summary.holidayHours} h`], ['Osnovna satnica', MojRadCalculation.formatMoney(config.satnica)], ['Putni trošak po danu', MojRadCalculation.formatMoney(config.putniTrosak)]
   ];
   summaryGrid.replaceChildren();
   items.forEach(([label, value]) => { const item = document.createElement('div'); item.className = 'summary-item'; item.innerHTML = `<span>${label}</span><strong>${value}</strong>`; summaryGrid.append(item); });
   workTotal.textContent = MojRadCalculation.formatMoney(summary.amount);
-  travelTotal.textContent = MojRadCalculation.formatMoney(config.putniTrosak);
-  paymentTotal.textContent = MojRadCalculation.formatMoney(summary.amount + config.putniTrosak);
+  travelTotal.textContent = MojRadCalculation.formatMoney(travelCost);
+  paymentTotal.textContent = MojRadCalculation.formatMoney(summary.amount + travelCost);
 }
 
 function renderDetails(shifts, config) {
@@ -34,7 +35,7 @@ function renderDetails(shifts, config) {
 function renderCalculation() {
   const config = MojRadConfig.load();
   const shifts = MojRadData.load().filter((shift) => shift.date.startsWith(`${monthSelect.value}-`));
-  const summary = MojRadCalculation.calculateMonth(shifts, config);
+  const summary = { ...MojRadCalculation.calculateMonth(shifts, config), shiftCount: shifts.length };
   shiftCount.textContent = `${shifts.length} ${shifts.length === 1 ? 'smjena' : 'smjena'}`;
   emptyCalculation.hidden = shifts.length > 0;
   renderSummary(summary, config);

@@ -14,14 +14,15 @@ const pdfCalculation = document.querySelector('#pdf-calculation');
 let currentSummary = null;
 
 function renderSummary(summary, config) {
+  const travelCost = summary.shiftCount * config.putniTrosak;
   const items = [
-    ['Broj smjena', `${summary.shiftCount}`], ['Ukupno radnih sati', `${summary.hours} h`], ['Ukupno dnevnih sati', `${summary.dailyHours} h`], ['Ukupno noćnih sati', `${summary.nightHours} h`], ['Ukupno sati subotom', `${summary.saturdayHours} h`], ['Ukupno sati nedjeljom', `${summary.sundayHours} h`], ['Ukupno sati praznikom', `${summary.holidayHours} h`], ['Osnovna satnica', MojRadCalculation.formatMoney(config.satnica)], ['Putni trošak', MojRadCalculation.formatMoney(config.putniTrosak)]
+    ['Broj radnih dana/smjena', `${summary.shiftCount}`], ['Prekovremene smjene', `${summary.overtimeShifts}`], ['Prekovremeni dodatak', MojRadCalculation.formatMoney(summary.overtimeAmount)], ['Ukupno radnih sati', `${summary.hours} h`], ['Ukupno dnevnih sati', `${summary.dailyHours} h`], ['Ukupno noćnih sati', `${summary.nightHours} h`], ['Ukupno sati subotom', `${summary.saturdayHours} h`], ['Ukupno sati nedjeljom', `${summary.sundayHours} h`], ['Ukupno sati praznikom', `${summary.holidayHours} h`], ['Osnovna satnica', MojRadCalculation.formatMoney(config.satnica)], ['Putni trošak po danu', MojRadCalculation.formatMoney(config.putniTrosak)]
   ];
   summaryGrid.replaceChildren();
   items.forEach(([label, value]) => { const item = document.createElement('div'); item.className = 'summary-item'; item.innerHTML = `<span>${label}</span><strong>${value}</strong>`; summaryGrid.append(item); });
   workTotal.textContent = MojRadCalculation.formatMoney(summary.amount);
-  travelTotal.textContent = MojRadCalculation.formatMoney(config.putniTrosak);
-  paymentTotal.textContent = MojRadCalculation.formatMoney(summary.amount + config.putniTrosak);
+  travelTotal.textContent = MojRadCalculation.formatMoney(travelCost);
+  paymentTotal.textContent = MojRadCalculation.formatMoney(summary.amount + travelCost);
 }
 
 function statusFor(shift) {
@@ -65,8 +66,8 @@ function createSnapshot() {
     monthName: ['januar', 'februar', 'mart', 'april', 'maj', 'juni', 'juli', 'avgust', 'septembar', 'oktobar', 'novembar', 'decembar'][month - 1],
     savedAt: new Date().toISOString(),
     satnica: config.satnica,
-    putniTrosak: config.putniTrosak,
-    total: summary.amount + config.putniTrosak,
+    putniTrosak: summary.shiftCount * config.putniTrosak,
+    total: summary.amount + summary.shiftCount * config.putniTrosak,
     summary: JSON.parse(JSON.stringify(summary)),
     faktori: JSON.parse(JSON.stringify(config.faktori)),
     shifts: shifts.map((shift) => ({
@@ -92,8 +93,8 @@ function createCurrentPdfReport() {
     filename: `Moj_Rad_${monthName.charAt(0).toUpperCase()}${monthName.slice(1)}_${year}.pdf`,
     summary,
     satnica: config.satnica,
-    putniTrosak: config.putniTrosak,
-    total: summary.amount + config.putniTrosak,
+    putniTrosak: shifts.length * config.putniTrosak,
+    total: summary.amount + shifts.length * config.putniTrosak,
     faktori: config.faktori,
     shifts: shifts.map((shift) => {
       const breakdown = MojRadCalculation.calculateShift(shift, config);
